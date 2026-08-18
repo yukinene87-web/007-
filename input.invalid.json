@@ -1,0 +1,18 @@
+{
+  "schema_version": "007-bridge/v1",
+  "task_id": "lp-a1-anchor-check-002",
+  "request_id": "550e8400-e29b-41d4-a716-446655440001",
+  "scope": {
+    "tenant_db_id": "db_msonpy3o",
+    "device_id": "Ayla_test001",
+    "external_send": true
+  },
+  "source_snapshot": {
+    "revision": "local-ide-export-id",
+    "content_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "included_paths": ["src/"]
+  },
+  "requested_outcome": "verify_a1_ui_anchor",
+  "expected_checks": ["target_app_boundary"],
+  "idempotency_key": "lp-a1-anchor-check-002:attempt-1"
+}

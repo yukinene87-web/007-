@@ -1,0 +1,23 @@
+{
+  "schema_version": "007-bridge/v1",
+  "task_id": "lp-a1-anchor-check-001",
+  "request_id": "550e8400-e29b-41d4-a716-446655440000",
+  "scope": {
+    "tenant_db_id": "db_msonpy3o",
+    "device_id": "Ayla_test001",
+    "external_send": false
+  },
+  "source_snapshot": {
+    "revision": "local-ide-export-id",
+    "content_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "included_paths": ["src/", "tests/", "docs/contract/"]
+  },
+  "requested_outcome": "verify_a1_ui_anchor",
+  "expected_checks": ["target_app_boundary", "anchor_confidence", "stop_condition"],
+  "idempotency_key": "lp-a1-anchor-check-001:attempt-1",
+  "status": "completed",
+  "evidence_refs": ["evidence/lp-a1-anchor-check-001/positive-chain.log", "evidence/lp-a1-anchor-check-001/reject-chain.log"],
+  "error_code": null,
+  "external_actions": [],
+  "timestamp": "2026-08-19T00:00:00.000Z"
+}

@@ -1,0 +1,17 @@
+{
+  "package_schema": "linkpulse-delivery/v1",
+  "package_id": "lp-8h-candidate-001",
+  "created_at": "2026-08-19T00:00:00.000Z",
+  "source_baseline": "manus-checkpoint-8h",
+  "task_ids": ["lp-a1-anchor-check-001"],
+  "allowed_changed_paths": ["client/src/pages/Pipeline.tsx", "client/tests/pipeline.test.ts"],
+  "excluded": [".env", "credentials", "node_modules", "dist", "customer_data"],
+  "test_summary": {
+    "typecheck": "passed",
+    "unit": "passed",
+    "dry_run": "passed"
+  },
+  "external_actions": [],
+  "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "rollback_reference": "manus-checkpoint-8h"
+}

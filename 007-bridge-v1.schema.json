@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://linkpulse.cc/schemas/007-bridge-v1.schema.json",
+  "title": "007 Bridge — JSON 输入/回执契约",
+  "description": "007/本地 IDE → Manus 的事实输入与回执。任何缺失、Scope 不符、未知字段、秘密字段或 external_send 非 false 一律拒绝。",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "task_id",
+    "request_id",
+    "scope",
+    "source_snapshot",
+    "requested_outcome",
+    "expected_checks",
+    "idempotency_key"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "007-bridge/v1"
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^lp-[a-z0-9-]+$",
+      "description": "任务唯一 ID，格式 lp-<领域>-<主题>-<序号>"
+    },
+    "request_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "请求唯一 ID，回执必须回显同一值"
+    },
+    "scope": {
+      "type": "object",
+      "required": ["tenant_db_id", "device_id", "external_send"],
+      "additionalProperties": false,
+      "properties": {
+        "tenant_db_id": {
+          "type": "string",
+          "pattern": "^db_[a-z0-9]+$"
+        },
+        "device_id": {
+          "type": "string"
+        },
+        "external_send": {
+          "type": "boolean",
+          "const": false,
+          "description": "★ 强制 false，任何 true 一律拒绝"
+        }
+      }
+    },
+    "source_snapshot": {
+      "type": "object",
+      "required": ["revision", "content_hash", "included_paths"],
+      "additionalProperties": false,
+      "properties": {
+        "revision": {
+          "type": "string"
+        },
+        "content_hash": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "included_paths": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "requested_outcome": {
+      "type": "string",
+      "description": "期望结果，如 verify_a1_ui_anchor"
+    },
+    "expected_checks": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "idempotency_key": {
+      "type": "string",
+      "description": "幂等键，task_id:attempt-N"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "accepted", "running", "completed", "failed", "rejected"],
+      "description": "回执专用：任务状态"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "回执专用：审计证据引用"
+    },
+    "error_code": {
+      "type": "string",
+      "description": "回执专用：错误码"
+    },
+    "external_actions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "回执专用：外部动作数组，必须为空数组"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "回执专用：ISO-8601 时间戳"
+    }
+  }
+}

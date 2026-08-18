@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://linkpulse.cc/schemas/linkpulse-delivery-v1.schema.json",
+  "title": "LinkPulse Delivery — ZIP 交付包 MANIFEST 契约",
+  "description": "Manus 交付的候选 ZIP 根目录必须含 MANIFEST.json，符合此契约。哈希不匹配、路径越界、含秘密/构建产物/未声明文件 → 007 拒绝导入。",
+  "type": "object",
+  "required": [
+    "package_schema",
+    "package_id",
+    "created_at",
+    "source_baseline",
+    "task_ids",
+    "allowed_changed_paths",
+    "excluded",
+    "test_summary",
+    "external_actions",
+    "sha256",
+    "rollback_reference"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "package_schema": {
+      "type": "string",
+      "const": "linkpulse-delivery/v1"
+    },
+    "package_id": {
+      "type": "string",
+      "pattern": "^lp-[a-z0-9-]+$"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_baseline": {
+      "type": "string"
+    },
+    "task_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "allowed_changed_paths": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "允许变更的文件路径白名单，越界即拒绝"
+    },
+    "excluded": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "test_summary": {
+      "type": "object",
+      "required": ["typecheck", "unit", "dry_run"],
+      "properties": {
+        "typecheck": { "type": "string" },
+        "unit": { "type": "string" },
+        "dry_run": { "type": "string" }
+      }
+    },
+    "external_actions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "★ 必须为空数组，非空即拒绝"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "rollback_reference": {
+      "type": "string"
+    }
+  }
+}
